@@ -1,5 +1,7 @@
-### COMMON GITIGNORES ###
+### MY GITIGNORES ###
+mongod.lnk
 
+### COMMON GITIGNORES ###
 # Compiled source #
 ###################
 *.com
@@ -39,7 +41,6 @@ ehthumbs.db
 Thumbs.db
 
 ### NODE.JS GITIGNORES
-
 # Logs
 logs
 *.log

@@ -14,13 +14,16 @@ mongoose.connect(`mongodb://${config.db.host}/${config.db.dbName}`, {
 });
 
 // Import models
-require('./models/file.model.js');
+require('./models/item.model.js');
 
 // Utilize Node.js Express framework
 const app = express();
 
 // Serving static files
 const publicPath = path.resolve(__dirname, './public');
+
+app.use(bodyParser.json());
+
 app.use(express.static(publicPath));
 app.use('/api', router);
 

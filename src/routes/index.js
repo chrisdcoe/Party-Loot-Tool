@@ -3,21 +3,10 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 
-// const LOOT = [
-//   {id: '1', name: 'Glaive', value: '20.00'},
-//   {id: '2', name: 'Battleaxe', value: '10.00'},
-//   {id: '3', name: 'Clothes, fine', value: '15.00'},
-//   {id: '4', name: 'Torch', value: '0.01'},
-// ];
-
-router.use('/doc', function(req, res, next) {
-  res.end(`Documentation http://expressjs.com/`);
-});
-
 module.exports = router;
 
 router.get('/loot', function(req, res, next) {
-  mongoose.model('Item').find({}, function(err, files) {
+  mongoose.model('Item').find({}, function(err, items) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -27,12 +16,20 @@ router.get('/loot', function(req, res, next) {
 });
 
 router.post('/loot', function(req, res, next) {
-  const newId = '' + LOOT.length;
-  const data = req.body;
-  data.id = newId;
+  const Item = mongoose.model('Item');
+  const itemData = {
+    name: req.body.name,
+    value: req.body.value,
+  };
 
-  LOOT.push(data);
-  res.status(201).json(data);
+  Item.create(itemData, function(err, newItem) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+    res.json(newItem);
+  });
 });
 
 router.put('/loot/:itemId', function(req, res, next) {
@@ -55,8 +52,8 @@ router.get('/loot/:itemId', function(req, res, next) {
   const {itemId} = req.params;
 
   const item = LOOT.find(entry => entry.id === itemId);
-  if (!file) {
-    return res.status(404).end(`Could not find file '${fileId}'`);
+  if (!item) {
+    return res.status(404).end(`Could not find item '${itemId}'`);
   }
 
   res.json(item);

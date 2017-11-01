@@ -7,8 +7,32 @@
 
   </head>
   <body>
-    <h1>Party Loot Tool</h1>
-    <div id="list-container"></div>
+    <div class="container">
+      <h1>Party Loot Tool</h1>
+      <div id="list-container"></div>
+
+      <!-- Button for adding a new item to the list -->
+      <button id="add-item-button" class="btn btn-primary" onclick="toggleAddItemForm()">Add Item</button>
+
+      <!-- Form for adding a new item, can be toggled -->
+      <div id="form-container" class="panel hidden">
+        <form id="add-item-form">
+          <div class="form-group">
+            <label for="item-name">Item Name</label>
+            <input type="text" class="form-control" id="item-name" placeholder="Item Name">
+          </div>
+          <div class="form-group">
+            <label for="item-value">GP Value</label>
+            <input type="text" class="form-control" id="item-value" placeholder="GP Value">
+          </div>
+          <button type="button" onclick="submitItemForm()" class="btn btn-success">Submit</button>
+          <button type="button" onclick="cancelItemForm()" class="btn btn-link">Cancel</button>
+        </form>
+      </div>
+
+    </div> <!-- closing tag for main container -->
+
+    <!-- Creates a table using Handlebars template that will be populated with DB items -->
     <script id="list-template" type="text/x-handlebars-template">
       <ul class="list-group">
         {{#each items}}
@@ -18,6 +42,8 @@
         {{/each}}
       </ul>
     </script>
+
+
 
     <!-- *** JavaScript Engines *** -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

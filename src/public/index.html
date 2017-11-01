@@ -41,6 +41,7 @@
           <strong>{{name}}</strong>: {{value}} GP
           <span class="pull-right">
             <button type="button" class="btn btn-xs btn-default" onclick="editItemClick('{{_id}}')">Edit</button>
+            <button type="button" class="btn btn-xs btn-danger" onclick="deleteItemClick('{{_id}}', '{{name}}')">Del</button>
           </span>
         </li>
         {{/each}}

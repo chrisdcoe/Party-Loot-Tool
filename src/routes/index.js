@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 module.exports = router;
 
 router.get('/loot', function(req, res, next) {
-  mongoose.model('Item').find({}, function(err, items) {
+  mongoose.model('Item').find({deleted: {$ne: true}}, function(err, items) {
     if (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -59,7 +59,24 @@ router.put('/loot/:itemId', function(req, res, next) {
 });
 
 router.delete('/loot/:itemId', function(req, res, next) {
-  res.end(`Deleting loot '${req.params.itemId}'`);
+  const Item = mongoose.model('Item');
+  const itemId = req.params.itemId;
+
+  Item.findById(itemId, function(err, item) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    if (!item) {
+      return res.status(404).json({message: "Item not found"});
+    }
+
+    item.deleted = true;
+
+    item.save(function(err, trashedItem) {
+      res.json(trashedItem);
+    });
+  });
 });
 
 router.get('/loot/:itemId', function(req, res, next) {

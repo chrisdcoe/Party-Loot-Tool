@@ -6,6 +6,7 @@ const ItemSchema = new mongoose.Schema({
   name: String,
   value: Number,
   created_at: {type: Date, default: Date.now},
+  deleted: {type: Boolean, default: false}
 });
 
 const Item = mongoose.model('Item', ItemSchema);

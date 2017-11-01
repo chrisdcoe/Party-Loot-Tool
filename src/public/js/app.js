@@ -86,6 +86,25 @@ function editItemClick(id) {
   }
 }
 
+// Delete Item button
+function deleteItemClick(id, name) {
+  if (confirm(name + "\rReally delete this item?")) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/loot/' + id,
+      dataType: 'json',
+      contentType: 'application/json',
+    })
+    .done(function(response) {
+      console.log("Item", id, "has been trashed.");
+      refreshItemList();
+    })
+    .fail(function(error) {
+      console.log("Failed to delete item", error);
+    })
+  }
+}
+
 // Set the form's data. This is reusable.
 function setFormData(data) {
   data = data || {};

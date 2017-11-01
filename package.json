@@ -4,7 +4,8 @@
   "description": "A tool for handling party inventory in role-playing games like Dungeons & Dragons",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,24 @@
+{
+  "name": "party-loot-tool",
+  "version": "1.0.0",
+  "description": "A tool for handling party inventory in role-playing games like Dungeons & Dragons",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisdcoe/Party-Loot-Tool.git"
+  },
+  "author": "Chris Coe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisdcoe/Party-Loot-Tool/issues"
+  },
+  "homepage": "https://github.com/chrisdcoe/Party-Loot-Tool#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.5"
+  }
+}

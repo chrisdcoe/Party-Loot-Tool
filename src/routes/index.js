@@ -20,6 +20,8 @@ router.post('/loot', function(req, res, next) {
   const itemData = {
     name: req.body.name,
     value: req.body.value,
+    quantity: req.body.quantity,
+    description: req.body.description,
   };
 
   Item.create(itemData, function(err, newItem) {
@@ -47,6 +49,8 @@ router.put('/loot/:itemId', function(req, res, next) {
 
     item.name = req.body.name;
     item.value = req.body.value;
+    item.quantity = req.body.quantity;
+    item.description = req.body.description;
 
     item.save(function(err, savedItem) {
       if (err) {

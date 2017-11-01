@@ -1,33 +1,63 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Party Loot Tool</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha256-QUyqZrt5vIjBumoqQV0jM8CgGqscFfdGhN+nVCqX0vc=" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha256-m/h/cUDAhf6/iBRixTbuc8+Rg2cIETQtPcH9D3p2Kg0=" crossorigin="anonymous" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="./my.css" />
 
   </head>
   <body>
     <div class="container">
-      <h1>Party Loot Tool</h1>
-      <div id="list-container"></div>
-
-      <!-- Button for adding a new item to the list -->
-      <button id="add-item-button" class="btn btn-primary" onclick="toggleAddItemForm()">Add Item</button>
+      <div class="card">
+        <h1 class="card-header">Party Loot Tool</h1>
+        <div class="card-body">
+          <div id="list-container"></div>
+          <div id="gp-total"></div>
+        </div>
+        <div class="card-footer">
+          <!-- Button for adding a new item to the list -->
+          <button id="add-item-button" class="btn btn-primary" onclick="toggleAddItemForm()">Add Item</button>
+        </div>
+      </div>
 
       <!-- Form for adding a new item, can be toggled -->
-      <div id="form-container" class="panel hidden">
+      <div id="form-container" class="card hideByDefault">
+        <h4 class="card-header">Item Properties</h4>
         <form id="add-item-form">
-          <input type="hidden" id="item-id" value="">
-          <div class="form-group">
-            <label for="item-name">Item Name</label>
-            <input type="text" class="form-control" id="item-name" placeholder="Item Name">
+          <div class="card-body">
+            <input type="hidden" id="item-id" value="">
+            <div class="row">
+              <div class="form-group col-12">
+                <label for="item-name">Item Name</label>
+                <input type="text" class="form-control" id="item-name" placeholder="Item Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="item-value">GP Value</label>
+                <input type="text" class="form-control" id="item-value" placeholder="GP Value">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="item-quantity">Quantity</label>
+                <input type="text" class="form-control" id="item-quantity" placeholder="Quantity">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-12">
+                <label for="item-description">Description</label>
+                <input type="text" class="form-control" id="item-description" placeholder="Optional">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="item-value">GP Value</label>
-            <input type="text" class="form-control" id="item-value" placeholder="GP Value">
+          <div class="card-footer">
+            <button type="button" onclick="submitItemForm()" class="btn btn-success">Submit</button>
+            <button type="button" onclick="cancelItemForm()" class="btn btn-link">Cancel</button>
           </div>
-          <button type="button" onclick="submitItemForm()" class="btn btn-success">Submit</button>
-          <button type="button" onclick="cancelItemForm()" class="btn btn-link">Cancel</button>
         </form>
       </div>
 
@@ -37,32 +67,56 @@
     <script id="list-template" type="text/x-handlebars-template">
       <ul class="list-group">
         {{#each items}}
-        <li class="list-group-item">
-          <strong>{{name}}</strong>: {{value}} GP
-          <span class="pull-right">
-            <button type="button" class="btn btn-xs btn-default" onclick="editItemClick('{{_id}}')">Edit</button>
-            <button type="button" class="btn btn-xs btn-danger" onclick="deleteItemClick('{{_id}}', '{{name}}')">Del</button>
-          </span>
+        <li class="list-group-item list-group-item-action data-item">
+          <div class="row">
+            <div class="col-sm-3 col-md-4">
+              <strong>{{name}}</strong>
+            </div>
+            <div class="col-sm-2 col-md-2 value">
+              {{value}}
+            </div>
+            <div class="col-sm-1 col-md-1 quantity">
+              {{quantity}}
+            </div>
+            <div class="col-sm-6 col-md-5">
+              <span class="float-right">
+                <button type="button" class="btn btn-sm btn-link" onclick="toggleDescriptionClick()">Description</button>
+                <button type="button" class="btn btn-sm btn-default" onclick="editItemClick('{{_id}}')">Edit</button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="deleteItemClick('{{_id}}', '{{name}}')">Del</button>
+              </span>
+            </div>
+          </div>
+          <div class="row card hideByDefault">
+            <div class="card-body">
+              {{description}}
+            </div>
+          </div>
         </li>
         {{/each}}
+        <li class="list-group-item list-group-item-action list-group-item-success">
+          <div class="row">
+            <div class="col-12" id="total-container">
+              <strong>Total: </strong>
+            </div>
+          </div>
+        </li>
       </ul>
     </script>
 
-
-
     <!-- *** JavaScript Engines *** -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
-
     <!-- *** Custom JavaScript *** -->
     <script>
       $(document).ready(function() {
         refreshItemList();
       });
-
     </script>
-
-
     <script src="/js/app.js"></script>
   </body>
 </html>

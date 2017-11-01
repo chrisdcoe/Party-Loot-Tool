@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const ItemSchema = new mongoose.Schema({
   name: String,
   value: Number,
+  quantity: Number,
+  description: String,
   created_at: {type: Date, default: Date.now},
   deleted: {type: Boolean, default: false}
 });

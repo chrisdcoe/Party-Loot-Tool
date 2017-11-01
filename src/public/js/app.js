@@ -3,7 +3,6 @@
 function getItems() {
   return $.ajax('/api/loot')
     .then(res => {
-      console.log("Results from getItems()", res);
       return res;
     })
     .fail(err => {
@@ -23,7 +22,22 @@ function refreshItemList() {
       const data = {items: items};
       const html = compiledTemplate(data);
       $('#list-container').html(html);
-    })
+      $('#total-container').html("<strong>Total:</strong> "
+       + getTotalValue() + " gp");
+      console.log(getTotalValue());
+    });
+}
+
+// Sum up the total GP value (each item's value * quantity)
+function getTotalValue() {
+  let totalValue = 0;
+  $("li.data-item").each(function(){
+    const thisValue = $(this).find(".value").html();
+    const thisQuantity = $(this).find(".quantity").html();
+    totalValue = totalValue + (+thisValue * +thisQuantity);
+  });
+  console.log(totalValue);
+  return totalValue;
 }
 
 // Toggle the Add Item form
@@ -34,7 +48,7 @@ function toggleAddItemForm() {
 
 // Toggle visibility of the form
 function toggleAddItemFormVisibility() {
-  $('#form-container').toggleClass('hidden');
+  $('#form-container').toggle();
 }
 
 // Submit Add Item data to DB
@@ -42,6 +56,8 @@ function submitItemForm() {
   const itemData = {
     name: $('#item-name').val(),
     value: $('#item-value').val(),
+    quantity: $('#item-quantity').val(),
+    description: $('#item-description').val(),
     _id: $('#item-id').val(),
   };
 
@@ -112,10 +128,20 @@ function setFormData(data) {
   const item = {
     name: data.name || '',
     value: data.value || '',
+    quantity: data.quantity || '',
+    description: data.description || '',
     _id: data._id || '',
   };
 
   $('#item-name').val(item.name);
   $('#item-value').val(item.value);
+  $('#item-quantity').val(item.quantity);
+  $('#item-description').val(item.description);
   $('#item-id').val(item._id);
+}
+
+// Toggle item description through button click
+function toggleDescriptionClick()
+{
+  $(document.activeElement).parent().parent().parent().siblings("div.card").toggle();
 }

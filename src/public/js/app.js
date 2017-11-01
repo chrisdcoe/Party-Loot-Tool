@@ -19,6 +19,7 @@ function refreshItemList() {
 
   getItems()
     .then(items => {
+      window.itemList = items;
       const data = {items: items};
       const html = compiledTemplate(data);
       $('#list-container').html(html);
@@ -27,6 +28,7 @@ function refreshItemList() {
 
 // Toggle the Add Item form
 function toggleAddItemForm() {
+  setFormData({});
   toggleAddItemFormVisibility();
 }
 
@@ -37,25 +39,31 @@ function toggleAddItemFormVisibility() {
 
 // Submit Add Item data to DB
 function submitItemForm() {
-  const name = $('#item-name').val();
-  const value = $('#item-value').val();
   const itemData = {
-    name: name,
-    value: value,
+    name: $('#item-name').val(),
+    value: $('#item-value').val(),
+    _id: $('#item-id').val(),
   };
-  console.log("Your item data: ", itemData);
+
+  let method, url;
+  if (itemData._id) {
+    method = 'PUT';
+    url = '/api/loot/' + itemData._id;
+  } else {
+    method = 'POST';
+    url = '/api/loot';
+  }
 
   $.ajax({
-    type: "POST",
-    url: '/api/loot',
+    type: method,
+    url: url,
     data: JSON.stringify(itemData),
     dataType: 'json',
     contentType: 'application/json',
   })
     .done(function(response) {
-      console.log("Posted the data");
       refreshItemList();
-      toggleAddItemFormVisibility();
+      toggleAddItemForm();
     })
     .fail(function(error) {
       console.log("Error POSTing data", error);
@@ -65,4 +73,30 @@ function submitItemForm() {
 // Cancel the Add Item form, toggle visibility
 function cancelItemForm() {
   toggleAddItemFormVisibility();
+}
+
+// Edit Item button
+function editItemClick(id) {
+  const item = window.itemList.find(item => item._id === id);
+  if (item) {
+    setFormData(item);
+    toggleAddItemFormVisibility();
+  } else {
+    console.log("Failed to find", id)
+  }
+}
+
+// Set the form's data. This is reusable.
+function setFormData(data) {
+  data = data || {};
+
+  const item = {
+    name: data.name || '',
+    value: data.value || '',
+    _id: data._id || '',
+  };
+
+  $('#item-name').val(item.name);
+  $('#item-value').val(item.value);
+  $('#item-id').val(item._id);
 }

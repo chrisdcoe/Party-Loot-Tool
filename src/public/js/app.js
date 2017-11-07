@@ -1,4 +1,3 @@
-
 // Get the item list
 function getItems() {
   return $.ajax('/api/loot')
@@ -24,7 +23,7 @@ function refreshItemList() {
       $('#list-container').html(html);
       $('#total-container').html("<strong>Total:</strong> "
        + getTotalValue() + " gp");
-      console.log(getTotalValue());
+      
     });
 }
 
@@ -32,11 +31,10 @@ function refreshItemList() {
 function getTotalValue() {
   let totalValue = 0;
   $("li.data-item").each(function(){
-    const thisValue = $(this).find(".value").html();
-    const thisQuantity = $(this).find(".quantity").html();
+    const thisValue = $(this).find(".thisValue").html();
+    const thisQuantity = $(this).find(".thisQuantity").html();
     totalValue = totalValue + (+thisValue * +thisQuantity);
   });
-  console.log(totalValue);
   return totalValue;
 }
 

@@ -1,0 +1,69 @@
+/**********
+*  FONTS  *
+**********/
+
+h1 {
+  font-family: 'Bentham', serif;
+  color: rgb(98, 26, 11);
+  font-variant: small-caps;
+}
+
+li, .btn, label, input {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#total-container strong {
+  font-variant: small-caps;
+}
+
+/***********
+*  COLORS  *
+***********/
+
+body {
+  background-color: rgb(140, 140, 96);
+}
+
+.card {
+  background-color: rgb(246, 246, 236);
+}
+
+/*.btn-success {
+  background-color: rgb(101, 160, 44);
+  border-color: rgb(101, 160, 44);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: rgb(86, 132, 42);
+  border-color: rgb(69, 104, 35);
+}
+
+.btn-success:focus, .btn-success.focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.btn-success.disabled, .btn-success:disabled {
+  background-color: rgb(101, 160, 44);
+  border-color: rgb(101, 160, 44);
+}
+
+.btn-success:not([disabled]):not(.disabled):active, .btn-success:not([disabled]):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  color: #fff;
+  border-color: rgb(76, 122, 32);
+  border-color: rgb(66, 112, 22);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}*/
+
+/***********
+*  LAYOUT  *
+***********/
+
+.hideByDefault {
+  display: none;
+}
+
+.heading {
+  font-variant: small-caps;
+}

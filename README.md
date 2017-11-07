@@ -2,7 +2,7 @@
 A tool for handling party inventory in role-playing games like Dungeons &amp; Dragons
 
 View the project in action at
-https://party-loot-tool-ddlsehovje.now.sh/
+https://party-loot-tool-eeolfjrkej.now.sh/
 
 This project was written in JavaScript using Node.js Express and MongoDB.
 

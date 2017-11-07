@@ -7,6 +7,7 @@ const config = require('./config');
 const router = require('./routes');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const Promise = require('bluebird');
 
 // Connect to MongoDB
 mongoose.connect(`mongodb://${config.db.host}/${config.db.dbName}`, {

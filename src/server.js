@@ -3,11 +3,12 @@
 // Requires
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
+const bluebird = require('bluebird');
+mongoose.Promise = bluebird;
+const bodyParser = require('body-parser');
 const config = require('./config');
 const router = require('./routes');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const Promise = require('bluebird');
 
 // Connect to MongoDB
 mongoose.connect(`mongodb://${config.db.host}/${config.db.dbName}`, {
@@ -21,7 +22,7 @@ require('./models/item.model.js');
 const app = express();
 
 // Serving static files
-const publicPath = path.resolve(__dirname, './public');
+const publicPath = path.resolve(__dirname, '../public');
 
 app.use(bodyParser.json());
 

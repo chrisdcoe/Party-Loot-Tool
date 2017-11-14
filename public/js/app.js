@@ -23,7 +23,7 @@ function refreshItemList() {
       $('#list-container').html(html);
       $('#total-container').html("<strong>Total:</strong> "
        + getTotalValue() + " gp");
-      
+
     });
 }
 
@@ -52,9 +52,9 @@ function toggleAddItemFormVisibility() {
 // Submit Add Item data to DB
 function submitItemForm() {
   const itemData = {
-    name: $('#item-name').val(),
-    value: $('#item-value').val(),
-    quantity: $('#item-quantity').val(),
+    name: $('#item-name').val() || 'Item',
+    value: Number($('#item-value').val()),
+    quantity: parseInt($('#item-quantity').val()),
     description: $('#item-description').val(),
     _id: $('#item-id').val(),
   };
@@ -125,8 +125,8 @@ function setFormData(data) {
 
   const item = {
     name: data.name || '',
-    value: data.value || '',
-    quantity: data.quantity || '',
+    value: data.value || 0,
+    quantity: data.quantity || 1,
     description: data.description || '',
     _id: data._id || '',
   };

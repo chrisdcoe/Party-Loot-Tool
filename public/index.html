@@ -27,34 +27,34 @@
       <!-- Form for adding a new item, can be toggled -->
       <div id="form-container" class="card hideByDefault">
         <h4 class="card-header">Item Properties</h4>
-        <form id="add-item-form">
+        <form id="add-item-form" name="add-item-form" action="">
           <div class="card-body">
             <input type="hidden" id="item-id" value="">
             <div class="row">
               <div class="form-group col-12">
                 <label for="item-name">Item Name</label>
-                <input type="text" class="form-control" id="item-name" placeholder="Item Name">
+                <input type="text" class="form-control" id="item-name" name="item-name" placeholder="Item Name">
               </div>
             </div>
             <div class="row">
               <div class="form-group col-sm-6">
                 <label for="item-value">GP Value</label>
-                <input type="text" class="form-control" id="item-value" placeholder="GP Value">
+                <input type="text" class="form-control" id="item-value" name="item-value" placeholder="GP Value">
               </div>
               <div class="form-group col-sm-6">
                 <label for="item-quantity">Quantity</label>
-                <input type="text" class="form-control" id="item-quantity" placeholder="Quantity">
+                <input type="text" class="form-control" id="item-quantity" name="item-quantity" placeholder="Quantity">
               </div>
             </div>
             <div class="row">
               <div class="form-group col-12">
                 <label for="item-description">Description</label>
-                <input type="text" class="form-control" id="item-description" placeholder="Optional">
+                <input type="text" class="form-control" id="item-description" name="item-description" placeholder="Optional">
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button type="button" onclick="submitItemForm()" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
             <button type="button" onclick="cancelItemForm()" class="btn btn-link">Cancel</button>
           </div>
         </form>
@@ -127,6 +127,8 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.8/handlebars.min.js"></script>
+
+    <script src="js/jquery.validate.min.js"></script>
     <!-- *** Custom JavaScript *** -->
     <script>
       $(document).ready(function() {

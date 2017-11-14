@@ -4,6 +4,7 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const bluebird = require('bluebird');
 mongoose.Promise = bluebird;
 const bodyParser = require('body-parser');
